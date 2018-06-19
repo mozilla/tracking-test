@@ -1,18 +1,18 @@
 <html>
   <head>
 <script>
-var iframeLoaded = false;
+var elementLoaded = false;
 
-function loaded(iframe)
+function loaded(element)
 {
   var foxTag = (document.getElementById('fox'));
   var catTag = (document.getElementById('cat'));
   var divTag = (document.getElementById('caption'));
-  if (iframe)
+  if (element)
   {
-    iframeLoaded = true;
+    elementLoaded = true;
   } else {
-    if (!iframeLoaded) {
+    if (!elementLoaded) {
       foxTag.style.display = '';
       caption.innerHTML="You have successfully enabled tracking protection. Please continue!"
     } else {
@@ -31,10 +31,7 @@ function loaded(iframe)
       <img src="fox.png" id="fox" style="display: none">
     </div>
     <p>For more information on Tracking Protection (including how to turn it ON and OFF in Firefox), see the <a href="https://support.mozilla.org/en-US/kb/tracking-protection-firefox">SUMO documentation</a>.</p>
-    <!-- bad iframe url -->
-    <iframe id="testiframe" onload="loaded(true)" style="display: none" src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" sandbox=""></iframe>
-    <!--<iframe id="testiframe" onload="loaded(true)" style="display: none" src="http://eviltracker.net/" sandbox=""></iframe>-->
-    <!--<iframe id="testiframe" onload="loaded(true)" style="display: none" src="https://ymail.com/" sandbox=""></iframe>-->
+    <img src="https://www.gravatar.com/favicon.ico" onload="loaded(true)" style="display:none">
     <hr>
     <p>The code behind this page is on <a href="https://github.com/mozilla/tracking-test">GitHub</a>.</p>
   </body>
