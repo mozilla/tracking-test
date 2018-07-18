@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+    <head>
+    <meta charset="utf-8">
+<script>
+var testPassed = [false, true, true, true];
+
+function loaded(list, test, expected)
+{
+    let element = 'fastblock' + list + test;
+    console.log('loaded: ' + element + " (expected=" + expected + ")");
+    let elementTag = document.getElementById(element);
+    let color = "green";
+    let qualifier = "correctly";
+    if (!expected) {
+        color = "red";
+        qualifier = "incorrectly";
+        testPassed[list] = false;
+    }
+    elementTag.innerHTML = "<font color='" + color + "'>" + qualifier + " loaded</font>";
+}
+
+function error(list, test, expected)
+{
+    let element = 'fastblock' + list + test;
+    console.log('blocked: ' + element + " (expected=" + expected + ")");
+    let elementTag = document.getElementById(element);
+    let color = "green";
+    let qualifier = "correctly";
+    if (!expected) {
+        color = "red";
+        qualifier = "incorrectly";
+        testPassed[list] = false;
+    }
+    elementTag.innerHTML = "<font color='" + color + "'>" + qualifier + " blocked</font>";
+}
+
+function updateUI() {
+    results = "";
+    for (let i = 1; i < testPassed.length; i++) {
+        results += "<li>";
+        if (testPassed[i]) {
+            results += "<font color='green'>Fastblock" + i + " is working!</front>";
+        } else {
+            results += "<font color='red'>Fastblock" + i + " is NOT working :(</font>";
+        }
+        results += "</li>\n";
+    }
+    caption.innerHTML = "<ul>\n" + results + "</ul>\n";
+}
+</script>
+    </head>
+    <body onload="updateUI()">
+        <h1>Fastblock basic test</h1>
+        <h2>Setup</h2>
+        <p>Set the following prefs in <code>about:config</code>:
+            <ul>
+                <li>Fastblock1:
+                    <ul>
+                        <li><code>privacy.trackingprotection.enabled</code> = <code><b>true</b></code></li>
+                        <li><code>urlclassifier.trackingTable</code> = <code>test-track-simple,<b>fastblock1-track-digest256</b></code></li>
+                        <li><code>urlclassifier.trackingWhitelistTable</code> = <code>test-trackwhite-simple,mozstd-trackwhite-digest256,<b>fastblock1-track-digest256</b></code></li>
+                    </ul>
+                </li>
+                <li>Fastblock2:
+                    <ul>
+                        <li><code>privacy.trackingprotection.enabled</code> = <code><b>true</b></code></li>
+                        <li><code>urlclassifier.trackingTable</code> = <code>test-track-simple,<b>fastblock2-track-digest256</b></code></li>
+                        <li><code>urlclassifier.trackingWhitelistTable</code> = <code>test-trackwhite-simple,mozstd-trackwhite-digest256,<b>fastblock2-track-digest256</b></code></li>
+                    </ul>
+                </li>
+                <li>Fastblock3:
+                    <ul>
+                        <li><code>privacy.trackingprotection.enabled</code> = <code><b>true</b></code></li>
+                        <li><code>urlclassifier.trackingTable</code> = <code>test-track-simple,<b>fastblock3-track-digest256</b></code></li>
+                        <li><code>urlclassifier.trackingWhitelistTable</code> = <i>default value</i></li>
+                    </ul>
+                </li>
+            </ul>
+        </p>
+        <h2>Summary</h2>
+        <p><b><span id="caption">Test in progress...</span></b></p>
+        <h2>Detailed Results</h2>
+        <div>
+            <ul>
+                <li>Fastblock1 (<code>fastblock1.json</code> and <code>fastblock1-whitelist.json</code>)
+                    <ol type="a">
+                        <li>Loading an image from a removed domain: <span id="fastblock1a">...</span></li>
+                        <li>Loading an image from a domain still on the list: <span id="fastblock1b">...</span></li>
+                        <li>Loading an image from a domain explicitly whitelisted: <span id="fastblock1c">...</span></li>
+                  </ol>
+                </li>
+                <li>Fastblock2 (<code>fastblock2.json</code> and <code>fastblock2-whitelist.json</code>)
+                    <ol type="a">
+                        <li>Loading an image from a removed domain: <span id="fastblock2a">...</span></li>
+                        <li>Loading an image from a domain still on the list: <span id="fastblock2b">...</span></li>
+                        <li>Loading an image from a domain explicitly whitelisted: <span id="fastblock2c">...</span></li>
+                  </ol>
+                </li>
+                <li>Fastblock3 (<code>fastblock3.json</code>)
+                    <ol type="a">
+                        <li>Loading an image from a removed domain: <span id="fastblock3a">...</span></li>
+                        <li>Loading an image from a domain still on the list: <span id="fastblock3b">...</span></li>
+                  </ol>
+                </li>
+            </ul>
+        </div>
+
+        <h2>Test images</h2>
+        <p>None of these images should be broken:</p>
+
+        <font color="red"><b>
+
+        <!-- fastblock1.json -->
+        <img src="https://www.contaxe.com/favicon.ico" onload="loaded(1, 'a', true)" onerror="error(1, 'a', false)" border="1" height="32" width="32" title="fastblock1a" alt="error!" style="border-color: black">
+        <img src="https://trackertest.org/fxui-test.jpg" onload="loaded(1, 'c', true)" onerror="error(1, 'c', false)" border="1" height="32" width="32" title="fastblock1c" alt="error!" style="border-color: black">
+
+        <!-- fastblock2.json -->
+        <img src="https://itisatracker.org/favicon.ico" onload="loaded(2, 'a', true)" onerror="error(2, 'a', false)" border="1" height="32" width="32" title="TODO: fastblock2a" alt="error!" style="border-color: black">
+        <img src="https://itisatracker.org/fxui-test.jpg" onload="loaded(2, 'c', true)" onerror="error(2, 'c', false)" border="1" height="32" width="32" title="fastblock2c" alt="error!" style="border-color: black">
+
+        <!-- fastblock3.json -->
+        <img src="https://pbs.twimg.com/favicon.ico" onload="loaded(3, 'a', true)" onerror="error(3, 'a', false)" border="1" height="32" width="32" title="fastblock3a" alt="error!" style="border-color: black">
+
+        </b></font>
+
+        <p>All of these images should be broken and displaying their <i>alt text</i>:</p>
+
+        <font color="green"><b>
+
+        <!-- fastblock1.json -->
+        <img src="https://www.att.com/favicon.ico" onload="loaded(1, 'b', false)" onerror="error(1, 'b', true)" border="1" height="32" width="32" title="fastblock1b" alt="success" style="border-color: black">
+
+        <!-- fastblock2.json -->
+        <img src="https://www.mozilla.org/favicon.ico" onload="loaded(2, 'b', false)" onerror="error(2, 'b', true)" border="1" height="32" width="32" title="TODO: fastblock2b" alt="success" style="border-color: black">
+
+        <!-- fastblock3.json -->
+        <img src="https://www.att.com/favicon.ico" onload="loaded(3, 'b', false)" onerror="error(3, 'b', true)" border="1" height="32" width="32" title="fastblock3b" alt="success" style="border-color: black">
+
+        </b></font>
+
+        <hr>
+        <p>The code behind this page is on <a href="https://github.com/mozilla/tracking-test">GitHub</a>.</p>
+    </body>
+</html>
