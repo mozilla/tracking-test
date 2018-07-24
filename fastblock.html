@@ -112,35 +112,37 @@ function updateUI() {
         <h2>Test images</h2>
         <p>None of these images should be broken:</p>
 
-        <font color="red"><b>
+        <ul>
+            <li>Fastblock1:
+                <font color="red"><b><img src="https://www.addthis.com/favicon.ico" onload="loaded(1, 'a', true)" onerror="error(1, 'a', false)" border="1" height="32" width="32" title="fastblock1a" alt="error!" style="border-color: black"></b></font>
+                <font color="red"><b><img src="https://trackertest.org/fxui-test.jpg" onload="loaded(1, 'c', true)" onerror="error(1, 'c', false)" border="1" height="32" width="32" title="fastblock1c" alt="error!" style="border-color: black"></b></font>
+            </li>
 
-        <!-- fastblock1.json -->
-        <img src="https://www.contaxe.com/favicon.ico" onload="loaded(1, 'a', true)" onerror="error(1, 'a', false)" border="1" height="32" width="32" title="fastblock1a" alt="error!" style="border-color: black">
-        <img src="https://trackertest.org/fxui-test.jpg" onload="loaded(1, 'c', true)" onerror="error(1, 'c', false)" border="1" height="32" width="32" title="fastblock1c" alt="error!" style="border-color: black">
+            <li>Fastblock2:
+                <font color="red"><b><img src="https://facebook.com/favicon.ico" onload="loaded(2, 'a', true)" onerror="error(2, 'a', false)" border="1" height="32" width="32" title="fastblock2a" alt="error!" style="border-color: black"></b></font>
+                <font color="red"><b><img src="https://iti.org/fxui-test.jpg" onload="loaded(2, 'c', true)" onerror="error(2, 'c', false)" border="1" height="32" width="32" title="fastblock2c" alt="error!" style="border-color: black"></b></font>
+            </li>
 
-        <!-- fastblock2.json -->
-        <img src="https://itisatracker.org/favicon.ico" onload="loaded(2, 'a', true)" onerror="error(2, 'a', false)" border="1" height="32" width="32" title="TODO: fastblock2a" alt="error!" style="border-color: black">
-        <img src="https://itisatracker.org/fxui-test.jpg" onload="loaded(2, 'c', true)" onerror="error(2, 'c', false)" border="1" height="32" width="32" title="fastblock2c" alt="error!" style="border-color: black">
-
-        <!-- fastblock3.json -->
-        <img src="https://pbs.twimg.com/favicon.ico" onload="loaded(3, 'a', true)" onerror="error(3, 'a', false)" border="1" height="32" width="32" title="fastblock3a" alt="error!" style="border-color: black">
-
-        </b></font>
+            <li>Fastblock3:
+                <font color="red"><b><img src="https://pbs.twimg.com/favicon.ico" onload="loaded(3, 'a', true)" onerror="error(3, 'a', false)" border="1" height="32" width="32" title="fastblock3a" alt="error!" style="border-color: black"></b></font>
+            </li>
+        </ul>
 
         <p>All of these images should be broken and displaying their <i>alt text</i>:</p>
 
-        <font color="green"><b>
+        <ul>
+            <li>Fastblock1:
+                <font color="green"><b><img src="https://facebook.com/favicon.ico" onload="loaded(1, 'b', false)" onerror="error(1, 'b', true)" border="1" height="32" width="32" title="fastblock1b" alt="success" style="border-color: black"></b></font>
+            </li>
 
-        <!-- fastblock1.json -->
-        <img src="https://www.att.com/favicon.ico" onload="loaded(1, 'b', false)" onerror="error(1, 'b', true)" border="1" height="32" width="32" title="fastblock1b" alt="success" style="border-color: black">
+            <li>Fastblock2:
+                <font color="green"><b><img src="https://www.addthis.com/favicon.ico" onload="loaded(2, 'b', false)" onerror="error(2, 'b', true)" border="1" height="32" width="32" title="fastblock2b" alt="success" style="border-color: black"></b></font>
+            </li>
 
-        <!-- fastblock2.json -->
-        <img src="https://www.mozilla.org/favicon.ico" onload="loaded(2, 'b', false)" onerror="error(2, 'b', true)" border="1" height="32" width="32" title="TODO: fastblock2b" alt="success" style="border-color: black">
-
-        <!-- fastblock3.json -->
-        <img src="https://www.att.com/favicon.ico" onload="loaded(3, 'b', false)" onerror="error(3, 'b', true)" border="1" height="32" width="32" title="fastblock3b" alt="success" style="border-color: black">
-
-        </b></font>
+            <li>Fastblock3:
+                <font color="green"><b><img src="https://www.att.com/favicon.ico" onload="loaded(3, 'b', false)" onerror="error(3, 'b', true)" border="1" height="32" width="32" title="fastblock3b" alt="success" style="border-color: black"></b></font>
+            </li>
+        </ul>
 
         <hr>
         <p>The code behind this page is on <a href="https://github.com/mozilla/tracking-test">GitHub</a>.</p>
