@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="referrer" value="no-referrer">
 <script>
-var testPassed = [false, true, true, true, true];
+var testPassed = [true, true, true, true, true];
 
 function loaded(list, test, expected)
 {
@@ -38,7 +38,7 @@ function error(list, test, expected)
 
 function updateUI() {
     results = "";
-    for (let i = 1; i < testPassed.length; i++) {
+    for (let i = 0; i < testPassed.length; i++) {
         results += "<li>";
         if (testPassed[i]) {
             results += "<font color='green'>Fastblock" + i + " is working!</front>";
@@ -56,6 +56,14 @@ function updateUI() {
         <h2>Setup</h2>
         <p>Set the following prefs in <code>about:config</code>:
             <ul>
+                <li>Fastblock0:
+                    <ul>
+                        <li><code>browser.safebrowsing.provider.mozilla.lists</code> = <i>default value</i></li>
+                        <li><code>privacy.trackingprotection.enabled</code> = <code><b>true</b></code></li>
+                        <li><code>urlclassifier.trackingTable</code> = <i>default value</i></li>
+                        <li><code>urlclassifier.trackingWhitelistTable</code> = <i>default value</i></li>
+                    </ul>
+                </li>
                 <li>Fastblock1:
                     <ul>
                         <li><code>browser.safebrowsing.provider.mozilla.lists</code> = <code>base-track-digest256,mozstd-trackwhite-digest256,content-track-digest256,mozplugin-block-digest256,mozplugin2-block-digest256,block-flash-digest256,except-flash-digest256,allow-flashallow-digest256,except-flashallow-digest256,block-flashsubdoc-digest256,except-flashsubdoc-digest256,except-flashinfobar-digest256,ads-track-digest256,social-track-digest256,analytics-track-digest256<b>,fastblock1-track-digest256,fastblock1-trackwhite-digest256</b></code></li>
@@ -95,6 +103,11 @@ function updateUI() {
         <h2>Detailed Results</h2>
         <div>
             <ul>
+                <li>Fastblock0 (<i>unmodified TP list</i>)
+                    <ol type="a">
+                        <li>Loading an image from a domain still on the list: <span id="fastblock0b">...</span></li>
+                  </ol>
+                </li>
                 <li>Fastblock1 (<code>fastblock1.json</code> and <code>fastblock1-whitelist.json</code>)
                     <ol type="a">
                         <li>Loading an image from a removed domain: <span id="fastblock1a">...</span></li>
@@ -150,6 +163,11 @@ function updateUI() {
         <p>All of these images should be broken and displaying their <i>alt text</i>:</p>
 
         <ul>
+            <li>Fastblock0:
+                <font color="green"><b><img src="https://www.google-analytics.com/collect?v=1
+" onload="loaded(0, 'b', false)" onerror="error(0, 'b', true)" border="1" height="32" width="32" title="fastblock0b" alt="success" style="border-color: black"></b></font>
+            </li>
+
             <li>Fastblock1:
                 <font color="green"><b><img src="https://aax-us-east.amazon-adsystem.com/x/px/" onload="loaded(1, 'b', false)" onerror="error(1, 'b', true)" border="1" height="32" width="32" title="fastblock1b" alt="success" style="border-color: black"></b></font>
             </li>
