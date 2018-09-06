@@ -80,6 +80,14 @@ function updateUI() {
                         <li><code>urlclassifier.trackingWhitelistTable</code> = <i>default value</i></li>
                     </ul>
                 </li>
+                <li>Fastblock4:
+                    <ul>
+                        <li><code>browser.safebrowsing.provider.mozilla.lists</code> = <i>default value</i></li>
+                        <li><code>privacy.trackingprotection.enabled</code> = <code><b>true</b></code></li>
+                        <li><code>urlclassifier.trackingTable</code> = <code>test-track-simple,<b>ads-track-digest256,social-track-digest256</b></code></li>
+                        <li><code>urlclassifier.trackingWhitelistTable</code> = <i>default value</i></li>
+                    </ul>
+                </li>
             </ul>
         </p>
         <h2>Summary</h2>
@@ -107,6 +115,12 @@ function updateUI() {
                         <li>Loading an image from a domain still on the list: <span id="fastblock3b">...</span></li>
                   </ol>
                 </li>
+                <li>Fastblock4 (<i>TP list minus Analytics category</i>)
+                    <ol type="a">
+                        <li>Loading an image from a removed domain: <span id="fastblock4a">...</span></li>
+                        <li>Loading an image from a domain still on the list: <span id="fastblock4b">...</span></li>
+                  </ol>
+                </li>
             </ul>
         </div>
 
@@ -127,6 +141,10 @@ function updateUI() {
             <li>Fastblock3:
                 <font color="red"><b><img src="https://pbs.twimg.com/favicon.ico" onload="loaded(3, 'a', true)" onerror="error(3, 'a', false)" border="1" height="32" width="32" title="fastblock3a" alt="error!" style="border-color: black"></b></font>
             </li>
+
+            <li>Fastblock4:
+                <font color="red"><b><img src="https://extremetracking.com/favicon.ico" onload="loaded(4, 'a', true)" onerror="error(4, 'a', false)" border="1" height="32" width="32" title="fastblock4a" alt="error!" style="border-color: black"></b></font>
+            </li>
         </ul>
 
         <p>All of these images should be broken and displaying their <i>alt text</i>:</p>
@@ -141,7 +159,11 @@ function updateUI() {
             </li>
 
             <li>Fastblock3:
-                <font color="green"><b><img src="https://www.scorecardresearch.com/images/AICPA_SOC_Seal.png" onload="loaded(3, 'b', false)" onerror="error(3, 'b', true)" border="1" height="32" width="32" title="fastblock3b" alt="success" style="border-color: black"></b></font> <!--  -->
+                <font color="green"><b><img src="https://www.scorecardresearch.com/images/AICPA_SOC_Seal.png" onload="loaded(3, 'b', false)" onerror="error(3, 'b', true)" border="1" height="32" width="32" title="fastblock3b" alt="success" style="border-color: black"></b></font>
+            </li>
+
+            <li>Fastblock4:
+                <font color="green"><b><img src="https://www.marketo.com/favicon.ico" onload="loaded(4, 'b', false)" onerror="error(4, 'b', true)" border="1" height="32" width="32" title="fastblock4b" alt="success" style="border-color: black"></b></font>
             </li>
         </ul>
 
