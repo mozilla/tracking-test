@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>FastBlock load event test (bug 1488974)</h1>
+        <h2>Setup</h2>
+        <p>Set the following prefs in order to have FastBlock kick in immediately when the page load starts:
+            <ul>
+                <li>browser.fastblock.enabled = true</li>
+                <li>browser.fastblock.timeout = 1</li>
+            </ul>
+        </p>
+        
+        <h2>Summary</h2>
+        <ul>
+            <li>Script was <span id="scriptResult">...</span> (before the load event).</li>
+            <li>Frame was <span id="frameResult">...</span> (after the load event, before the limit).</li>
+        </ul>
+
+        <script>
+        function scriptLoaded() {
+            var elem = document.getElementById("scriptResult");
+            elem.innerHTML = '<font color="red">incorrectly loaded</font>';
+        }
+        function scriptBlocked() {
+            var elem = document.getElementById("scriptResult");
+            elem.innerHTML = '<font color="green">correctly blocked</font>';
+        }
+
+        var loaded = false;
+        function frameLoaded() {
+            loaded = true;
+            var elem = document.getElementById("frameResult");
+            elem.innerHTML = '<font color="green">loaded correctly</font>';
+        }
+        function frameBlocked() {
+            if (loaded) return;
+            var elem = document.getElementById("frameResult");
+            elem.innerHTML = '<font color="red">incorrectly blocked</font>';
+        }
+
+        function changeResource() {
+            var elem = document.getElementById("frame");
+            elem.onload = frameLoaded;
+            elem.src = "https://trackertest.org/index.html";
+        }
+        setTimeout(function () {
+            changeResource();
+            setTimeout(function () {
+                frameBlocked();
+            }, 500);
+        }, 2000);
+        </script>
+        <script src="https://itisatracker.org/tracker.js" onload="scriptLoaded()" onerror="scriptBlocked()"></script>
+
+        <h2>Results</h2>
+
+        <p>After 2 seconds, this empty frame should be navigated to a tracking domain:</p>
+        <iframe id="frame" src="about:blank"></iframe>
+
+        <p>If you open the devtools console. You should see that:
+            <ul>
+                <li>the load for <code>https://itisatracker.org/tracker.js</code> got <b>canceled</b>, and</li>
+                <li>the load for <code>https://trackertest.org/index.html</code> was let through (i.e. it doesn't show up in the console).</li>
+            </ul>
+        </p>
+    </body>
+</html>
