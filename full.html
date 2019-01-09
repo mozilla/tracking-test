@@ -1,34 +1,12 @@
 <html>
   <head>
-<script>
-var elementLoaded = false;
-
-function loaded(element)
-{
-  var foxTag = (document.getElementById('fox'));
-  var catTag = (document.getElementById('cat'));
-  var divTag = (document.getElementById('caption'));
-  if (element)
-  {
-    elementLoaded = true;
-  } else {
-    if (!elementLoaded) {
-      foxTag.style.display = '';
-      caption.innerHTML="You have successfully enabled tracking protection. Please continue!"
-    } else {
-      catTag.style.display = '';
-      caption.innerHTML="Your browser is not set up for tracking protection. Please check your setup and try again."
-    }
-  }
-}
-</script>
-
+    <script src="./loaded.js"></script>
   </head>
-  <body onload="loaded(false)">
+  <body>
     <div id='caption'>Tracking protection sanity test...</div>
     <div>
-      <img src="cat.png" id="cat" style="display: none">
-      <img src="fox.png" id="fox" style="display: none">
+      <img src="cat.png" id="cat">
+      <img src="fox.png" id="fox">
     </div>
     <p>For more information on Tracking Protection (including how to turn it ON and OFF in Firefox), see the <a href="https://support.mozilla.org/en-US/kb/tracking-protection-firefox">SUMO documentation</a>.</p>
     <img src="https://www.gravatar.com/favicon.ico" onload="loaded(true)" style="display:none">
