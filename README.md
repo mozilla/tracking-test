@@ -36,10 +36,10 @@ expected result: fox displays, confirming page is serving correct content
 
 expected result: fastblock.html displays status of Fastblock list is working
 
-### https://mozilla.github.io/tracking-test/full.html
+### https://mozilla.github.io/tracking-test/content.html
 1. Create a STRICT profile
 2. Restart browser
-3. Navigate to https://mozilla.github.io/tracking-test/full.html
+3. Navigate to https://mozilla.github.io/tracking-test/content.html
 
 expected result: fox displays, confirming page is serving correct content
 
