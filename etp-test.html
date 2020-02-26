@@ -62,9 +62,9 @@
                 <td>social-tracking-protection-linkedin-digest256:</td>
                 <td>
                   <img
-                     id="stp-img-linkedin-digest256"
-                     src="https://social-tracking-protection-linkedin-digest256.dummytracker.org/test_not_blocked.png"
-                     onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
+                   id="stp-img-linkedin-digest256"
+                   src="https://social-tracking-protection-linkedin-digest256.dummytracker.org/test_not_blocked.png"
+                   onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
                 </td>
             </tr>
             <tr>
@@ -109,25 +109,32 @@
                 <td>social-track-digest256:</td>
                 <td>
                   <img
-                     src="https://social-track-digest256.dummytracker.org/test_not_blocked.png"
-                     onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
+                    id="lvl-one-img-social-digest256"
+                    src="https://social-track-digest256.dummytracker.org/test_not_blocked.png"
+                    onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
                 </td>
             </tr>
             <tr>
                 <td>ads-track-digest256:</td>
                 <td>
                   <img
-                     src="https://ads-track-digest256.dummytracker.org/test_not_blocked.png"
-                     onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
+                    id="lvl-one-img-ads-digest256"
+                    src="https://ads-track-digest256.dummytracker.org/test_not_blocked.png"
+                    onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
                 </td>
             </tr>
             <tr>
                 <td>analytics-track-digest256:</td>
                 <td>
                   <img
-                     src="https://analytics-track-digest256.dummytracker.org/test_not_blocked.png"
-                     onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
+                    id="lvl-one-img-analytics-digest256"
+                    src="https://analytics-track-digest256.dummytracker.org/test_not_blocked.png"
+                    onerror="this.onerror=null;this.src='https://not-a-tracker.dummytracker.org/test_blocked.png'">
                 </td>
+            </tr>
+            <tr>
+                <td><b>Summary:</b></td>
+                <td><img id="lvl-one-img-summary"></td>
             </tr>
             <tr>
                 <td colspan="2" bgcolor=#cccccc>Level 2 (Strict List) List Tracker Blocking</th>
@@ -156,22 +163,69 @@
     </p>
 
     <script>
-      const isAllBlocked = (currentValue) => currentValue.src === 'https://not-a-tracker.dummytracker.org/test_blocked.png';
-      stpImgLists = [
-          "stp-img-facebook-digest256",
-          "stp-img-linkedin-digest256",
-          "stp-img-twitter-digest256"
+      const STP_IMG_LIST = [
+        "stp-img-facebook-digest256",
+        "stp-img-linkedin-digest256",
+        "stp-img-twitter-digest256"
       ];
-      stpBlocked = stpImgLists.every(isAllBlocked);
-      if (stpBlocked) {
-        image = document.getElementById('stp-img-summary');
-        image.src = 'https://not-a-tracker.dummytracker.org/test_blocked.png';
-        console.log('STP enabled successfully');
-      } else {
-        image = document.getElementById('stp-img-summary');
-        image.src = 'https://not-a-tracker.dummytracker.org/test_not_blocked.png';
-        console.log('STP not enabled successfully');
+      const LEVENL_ONE_LIST = [
+        "lvl-one-img-ads-digest256",
+        "lvl-one-img-analytics-digest256",
+        "lvl-one-img-social-digest256"
+      ];
+
+      main();
+
+      function main() {
+        window.addEventListener(
+          "message",
+          event => {
+            lists = [
+              "social-tracking-protection-facebook-digest256",
+              "social-tracking-protection-linkedin-digest256",
+              "social-tracking-protection-twitter-digest256"
+            ];
+            lists.forEach(list => {
+              if (event.origin === `https://${list}.dummytracker.org`) {
+                updateCookieStatus(event.data, list);
+              }
+            });
+          },
+          false
+        );
+
+        getSummary(STP_IMG_LIST, "stp-img-summary");
+        getSummary(LEVENL_ONE_LIST, "lvl-one-img-summary");
       }
+
+      function getElements(elementIds) {
+        let elementsLists = [];
+        for (let id of elementIds) {
+          element = document.getElementById(id);
+          elementsLists.push(element);
+        }
+        return elementsLists;
+      }
+
+      function getSummary(elementIds, summaryId) {
+        const isAllBlocked = currentValue =>
+          currentValue.src ===
+          "https://not-a-tracker.dummytracker.org/test_blocked.png";
+        const stpBlocked = getElements(elementIds).every(
+          currentValue =>
+            currentValue.src ===
+            "https://not-a-tracker.dummytracker.org/test_blocked.png"
+        );
+        const image = document.getElementById(summaryId);
+        if (stpBlocked) {
+          image.src = "https://not-a-tracker.dummytracker.org/test_blocked.png";
+          console.log("STP enabled successfully");
+        } else {
+          image.src = "https://not-a-tracker.dummytracker.org/test_not_blocked.png";
+          console.log("STP not enabled successfully");
+        }
+      }
+
       function updateCookieStatus(statusMessage, list) {
           var output = document.getElementById(list);
           if (statusMessage === 'cookies') {
@@ -182,18 +236,6 @@
             output.innerHTML = "Unrecognized status";
           }
       }
-      window.addEventListener("message", event => {
-        lists = [
-          'social-tracking-protection-facebook-digest256',
-          'social-tracking-protection-linkedin-digest256',
-          'social-tracking-protection-twitter-digest256'
-        ];
-        lists.forEach(list => {
-          if (event.origin === `https://${list}.dummytracker.org`) {
-            updateCookieStatus(event.data, list);
-          }
-        });
-      }, false);
     </script>
   </body>
 </html>
