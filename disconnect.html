@@ -1,60 +1,8 @@
 <html>
   <head>
-<script>
-var elementLoaded = {
-    social: false,
-    ads: false,
-    analytics: false,
-};
-
-function loaded(element, kind)
-{
-  var foxTag = (document.getElementById('fox'));
-  var catTag = (document.getElementById('cat'));
-  var divTag = (document.getElementById('caption'));
-  if (element)
-  {
-    elementLoaded[kind] = true;
-  } else {
-    everythingBlocked = true;
-    for (key in elementLoaded) {
-      let span = window.document.getElementById('span-' + key);
-      if (elementLoaded[key]) {
-        everythingBlocked = false;
-        span.innerHTML = '<font color="red"><b>incorrectly loaded</b></font>';
-      } else {
-        span.innerHTML = '<font color="green"><b>correctly blocked</b></font>';
-      }
-    }
-    if (everythingBlocked) {
-      foxTag.style.display = '';
-      caption.innerHTML="You have successfully enabled tracking protection. Please continue!"
-    } else {
-      catTag.style.display = '';
-      caption.innerHTML="Your browser is not set up for tracking protection. Please check your setup and try again."
-    }
-  }
-}
-</script>
-
   </head>
-  <body onload="loaded(false, false)">
-    <div>This pages tests entries in the <tt>Disconnect</tt> category that are mapped to the following user-visible categories:</div>
-    <ul>
-      <li>Ads: <span id="span-ads"><i>(waiting for result...)</i></span></li>
-      <li>Analytics: <span id="span-analytics"><i>(waiting for result...)</i></span></li>
-      <li>Social: <span id="span-social"><i>(waiting for result...)</i></span></li>
-    </ul>
-    <div id='caption'>Tracking protection sanity test...</div>
-    <div>
-      <img src="cat.png" id="cat" style="display: none">
-      <img src="fox.png" id="fox" style="display: none">
-    </div>
-    <p>For more information on Tracking Protection (including how to turn it ON and OFF in Firefox), see the <a href="https://support.mozilla.org/en-US/kb/tracking-protection-firefox">SUMO documentation</a>.</p>
-    <img src="https://facebook.com/favicon.ico" onload="loaded(true, 'social')" style="display:none">
-    <img src="https://doubleclick.net/favicon.ico" onload="loaded(true, 'ads')" style="display:none">
-    <img src="https://try.crashlytics.com/favicon.ico" onload="loaded(true, 'analytics')" style="display:none">
-    <hr>
+  <body>
+    <p>This page is no longer used for testing, please use <a href="https://senglehardt.com/test/trackingprotection/test_pages/">https://senglehardt.com/test/trackingprotection/test_pages/</a> instead.</p>
     <p>The code behind this page is on <a href="https://github.com/mozilla/tracking-test">GitHub</a>.</p>
   </body>
 </html>
